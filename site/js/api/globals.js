@@ -3,8 +3,13 @@ const urlBaseApi = "https://optometry-api-production.up.railway.app/";
 const jwtApi = localStorage.getItem("jwt");
 const userApi = localStorage.getItem("user");
 
+$(document).ready(function () {
+    $("#overlayApi").fadeOut(1000);
+});
+
 const core = async (endPoint, method, data, jwtApi = null) => {
     try {
+        $("#overlayApi").fadeIn(1000);
         const response = await fetch(`${urlBaseApi}${endPoint}`, {
             method: method,
             headers: {
@@ -18,8 +23,10 @@ const core = async (endPoint, method, data, jwtApi = null) => {
             const errorMessage = errorData.message;
             throw new Error(errorMessage);
         }
+        $("#overlayApi").fadeOut(1000);
         return response.json();
     } catch (error) {
+        $("#overlayApi").fadeOut(1000);
         Swal.fire({
             title: "Error en la petición",
             text: error.message,
