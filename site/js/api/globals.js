@@ -1,4 +1,5 @@
 const urlBaseApi = "https://optometry-api-production.up.railway.app/";
+const urlBase = "https://app-optometry.up.railway.app/";
 
 const jwtApi = localStorage.getItem("jwt");
 const userApi = localStorage.getItem("user");
@@ -91,7 +92,7 @@ const logout = () => {
             await core("auth/logout", "POST", data);
             localStorage.removeItem("jwt");
             localStorage.removeItem("user");
-            window.location.href = './index.html';
+            window.location.href = urlBase;
         }
     });
 }
@@ -110,7 +111,7 @@ const sesion = () => {
         localStorage.removeItem("jwt");
         localStorage.removeItem("user");
         setTimeout(() => {
-            window.location.href = './index.html';
+            window.location.href = urlBase;
         }, 1500);
     }
 }
