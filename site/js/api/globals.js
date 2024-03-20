@@ -10,21 +10,39 @@ $(document).ready(function () {
 const core = async (endPoint, method, data, jwtApi = null) => {
     try {
         $("#overlayApi").fadeIn(1000);
-        const response = await fetch(`${urlBaseApi}${endPoint}`, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwtApi}`
-            },
-            body: JSON.stringify(data)
-        });
-        if (!response.ok) {
-            const errorData = await response.json();
-            const errorMessage = errorData.message;
-            throw new Error(errorMessage);
+        if (method === "GET" || method === "DELETE") {
+            const response = await fetch(`${urlBaseApi}${endPoint}`, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtApi}`
+                },
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorMessage = errorData.message;
+                throw new Error(errorMessage);
+            }
+            $("#overlayApi").fadeOut(1000);
+            return response.json();
         }
-        $("#overlayApi").fadeOut(1000);
-        return response.json();
+        if (method === "POST" || method === "PUT" || method === "PATCH") {
+            const response = await fetch(`${urlBaseApi}${endPoint}`, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtApi}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorMessage = errorData.message;
+                throw new Error(errorMessage);
+            }
+            $("#overlayApi").fadeOut(1000);
+            return response.json();
+        }
     } catch (error) {
         $("#overlayApi").fadeOut(1000);
         Swal.fire({
@@ -95,4 +113,9 @@ const sesion = () => {
             window.location.href = './index.html';
         }, 1500);
     }
+}
+
+const setUserSession = () => {
+    const user = JSON.parse(userApi);
+    $("#userNameSession").text(`${user.name} ${user.lastname}`);
 }

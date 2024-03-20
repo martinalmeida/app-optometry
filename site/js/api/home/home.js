@@ -1,1 +1,4 @@
-sesion();
+$(document).ready(function () {
+    sesion();
+    setUserSession();
+});
