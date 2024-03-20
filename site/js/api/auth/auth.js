@@ -9,7 +9,11 @@ const loginApi = async () => {
                 password
             }
             const response = await core("auth/login", "POST", data);
-            if (response) window.location.href = './home.html';
+            if (response) {
+                localStorage.setItem("jwt", response.token);
+                localStorage.setItem("user", JSON.stringify(response.user));
+                window.location.href = './home.html';
+            }
         }
     } catch (error) {
         console.error('Error en la petición:', error);

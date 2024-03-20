@@ -1,6 +1,7 @@
 const urlBaseApi = "https://optometry-api-production.up.railway.app/";
 
 const jwtApi = localStorage.getItem("jwt");
+const userApi = localStorage.getItem("user");
 
 const core = async (endPoint, method, data, jwtApi = null) => {
     try {
@@ -46,4 +47,45 @@ const validateForm = (fields) => {
         }
     }
     return true;
+}
+
+const logout = () => {
+    Swal.fire({
+        title: "Deseas cerrar sesion?",
+        text: "Se cerrara la sesion actual",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, cerrar",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const data = {
+                token: jwtApi
+            };
+            await core("auth/logout", "POST", data);
+            localStorage.removeItem("jwt");
+            localStorage.removeItem("user");
+            window.location.href = './index.html';
+        }
+    });
+}
+
+const sesion = () => {
+    if (!jwtApi || jwtApi === null || jwtApi === undefined || jwtApi === '') {
+        Swal.fire({
+            title: "Sesión caducada",
+            text: "Por favor, inicie sesión de nuevo",
+            icon: "warning",
+            showConfirmButton: false,
+            showCloseButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        });
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("user");
+        setTimeout(() => {
+            window.location.href = './index.html';
+        }, 1500);
+    }
 }
