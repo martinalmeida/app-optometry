@@ -92,6 +92,7 @@ const logout = () => {
             await core("auth/logout", "POST", data);
             localStorage.removeItem("jwt");
             localStorage.removeItem("user");
+            localStorage.removeItem("dataStore");
             window.location.href = urlBase;
         }
     });
@@ -110,6 +111,7 @@ const sesion = () => {
         });
         localStorage.removeItem("jwt");
         localStorage.removeItem("user");
+        localStorage.removeItem("dataStore");
         setTimeout(() => {
             window.location.href = urlBase;
         }, 1500);

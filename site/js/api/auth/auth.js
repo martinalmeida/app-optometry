@@ -1,7 +1,7 @@
 const loginApi = async () => {
     try {
-        let email = document.getElementById("inputEmail").value;
-        let password = document.getElementById("inputPassword").value;
+        let email = $("#inputEmail").val();
+        let password = $("#inputPassword").val();
         const validated = validateForm([email, password]);
         if (validated) {
             const data = {

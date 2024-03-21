@@ -77,6 +77,7 @@ const changeStatus = async (id) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             // await core("auth/logout", "POST", data);
+            await refreshTable();
         }
     });
 };
@@ -103,7 +104,18 @@ const deletedRegister = async (id) => {
         confirmButtonText: "Si, eliminar",
     }).then(async (result) => {
         if (result.isConfirmed) {
-            // await core("auth/logout", "POST", data);
+            const response = await core(`user/${id}`, "DELETE", null, jwtApi);
+            if (response) {
+                await refreshTable();
+            }
         }
     });
 };
+
+
+const refreshTable = async () => {
+    const table = $("#dataTableUsers").DataTable();
+    table.rows().remove().draw();
+    const users = await getUsers();
+    table.rows.add(users).draw();
+}
