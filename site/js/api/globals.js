@@ -77,6 +77,7 @@ const validateForm = (fields) => {
 
 const logout = () => {
     Swal.fire({
+        position: "top",
         title: "Deseas cerrar sesion?",
         text: "Se cerrara la sesion actual",
         icon: "warning",
@@ -84,6 +85,8 @@ const logout = () => {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Si, cerrar",
+        allowOutsideClick: false,
+        allowEscapeKey: false
     }).then(async (result) => {
         if (result.isConfirmed) {
             const data = {
