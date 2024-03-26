@@ -4,10 +4,6 @@ const urlBase = "https://app-optometry.up.railway.app/";
 const jwtApi = localStorage.getItem("jwt");
 const userApi = localStorage.getItem("user");
 
-$(document).ready(function () {
-    $("#overlayApi").fadeOut(1000);
-});
-
 const core = async (endPoint, method, data, jwtApi = null) => {
     try {
         $("#overlayApi").fadeIn(1000);
