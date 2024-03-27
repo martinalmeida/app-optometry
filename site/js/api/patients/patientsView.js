@@ -6,7 +6,7 @@ $(document).ready(async () => {
         localStorage.getItem("dataStore") == undefined ||
         localStorage.getItem("dataStore") == ""
     ) {
-        window.location.href = "./";
+        window.location.href = "./index.html";
     }
     const dataStore = JSON.parse(localStorage.getItem("dataStore"));
     await getDataRegister(dataStore.id);
@@ -34,25 +34,25 @@ const savedRegister = async () => {
         const response = await core("user", "POST", data, jwtApi);
         if (response) {
             localStorage.removeItem("dataStore");
-            window.location.href = "./";
+            window.location.href = "./index.html";
         }
     }
     if (dataStore.id != null && validated) {
         const response = await core(`user/${dataStore.id}`, "PUT", data, jwtApi);
         if (response) {
             localStorage.removeItem("dataStore");
-            window.location.href = "./";
+            window.location.href = "./index.html";
         }
     }
 }
 
 const getDataRegister = async (id) => {
     if (id != null) {
-        const response = await core(`user/${id}`, "GET", null, jwtApi);
-        if (response) {
-            $("#name").val(response.name);
-            $("#lastname").val(response.lastname);
-            $("#email").val(response.email);
+        const { userById } = await core(`user/${id}`, "GET", null, jwtApi);
+        if (userById) {
+            $("#name").val(userById.name);
+            $("#lastname").val(userById.lastname);
+            $("#email").val(userById.email);
         }
     }
 }

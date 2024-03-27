@@ -35,19 +35,17 @@ const initializeDataTable = (users) => {
                 title: "Acciones",
                 data: null,
                 render: function (data, type, row) {
-                    return `
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" class="btn btn-primary btn-circle" onclick="changeStatus(${data.id})" title="Cambiar estado">
-                                <i class="fas fa-exchange-alt"></i>
-                            </button>
-                            <button type="button" class="btn btn-success btn-circle" onclick="updatedRegister(${data.id})" title="Editar registro">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-circle" onclick="deletedRegister(${data.id})" title="Eliminar registro">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                        `;
+                    return `<div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-primary btn-circle" onclick="changeStatus(${data.id})" title="Cambiar estado">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-success btn-circle" onclick="updatedRegister(${data.id})" title="Editar registro">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-circle" onclick="deletedRegister(${data.id})" title="Eliminar registro">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>`;
                 },
             },
         ],

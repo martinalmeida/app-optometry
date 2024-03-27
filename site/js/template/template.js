@@ -1,8 +1,16 @@
-let ruta = window.location.pathname;
-let partes = ruta.split('/');
-let nombreArchivo = partes[partes.length - 1];
+let urlPage = window.location.pathname;
+let parts = urlPage.split('/');
+let nameFile = parts[parts.length - 1];
 
-const headerHome = `<a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
+// Files url
+const imgProfile = (nameFile === 'home.html') ? './img/undraw_profile.svg' : '../../img/undraw_profile.svg';
+
+// Routes url
+const routeHome = (nameFile === 'home.html') ? 'home.html' : '../../home.html';
+const routeUser = (nameFile === 'home.html') ? './views/users/index.html' : '../../views/users/index.html';
+const routePatient = (nameFile === 'home.html') ? './views/patients/index.html' : '../../views/patients/index.html';
+
+let header = `<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${routeHome}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-eye"></i>
                 </div>
@@ -12,27 +20,12 @@ const headerHome = `<a class="sidebar-brand d-flex align-items-center justify-co
                 <hr class="sidebar-divider my-0">
 
                 <li class="nav-item active">
-                <a class="nav-link" href="home.html">
+                <a class="nav-link" href="${routeHome}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Pagina Principal</span></a>
-                </li>`;
+                </li>
 
-const headerView = `<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../../home.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">OptometryApp</div>
-                </a>
-
-                <hr class="sidebar-divider my-0">
-
-                <li class="nav-item active">
-                <a class="nav-link" href="../../home.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Pagina Principal</span></a>
-                </li>`;
-
-const menu = `<hr class="sidebar-divider">
+                <hr class="sidebar-divider">
 
                 <div class="sidebar-heading">
                     Optometria
@@ -47,8 +40,8 @@ const menu = `<hr class="sidebar-divider">
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Usuarios y pacientes:</h6>
-                            <a class="collapse-item" href="../../views/users">Usuarios</a>
-                            <a class="collapse-item" href="../../views/patients">Pacientes</a>
+                            <a class="collapse-item" href="${routeUser}">Usuarios</a>
+                            <a class="collapse-item" href="${routePatient}">Pacientes</a>
                         </div>
                     </div>
                 </li>
@@ -76,7 +69,7 @@ const menu = `<hr class="sidebar-divider">
                     </div>
                 </div>`;
 
-const nav = `<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+let nav = `<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
@@ -86,7 +79,7 @@ const nav = `<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="userNameSession"></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../../img/undraw_profile.svg">
+                                    src="${imgProfile}">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -99,7 +92,7 @@ const nav = `<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 
                     </ul>
                 </nav>`;
 
-const footer = `<footer class="sticky-footer bg-white">
+let footer = `<footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
                             <span>Copyright &copy; 2024</span>
@@ -110,22 +103,15 @@ const footer = `<footer class="sticky-footer bg-white">
                     <i class="fas fa-angle-up"></i>
                 </a>`;
 
-if ($('#dinamicSidebar').length && nombreArchivo === 'home.html') {
-    $('#dinamicSidebar').html(headerHome + menu);
-}
-
-if ($('#dinamicSidebar').length && nombreArchivo !== 'home.html') {
-    $('#dinamicSidebar').html(headerView + menu);
-}
-
-if ($('#dinamicTopbar').length) {
-    $('#dinamicTopbar').html(nav);
-}
-
-if ($('#dinamicFooter').length) {
-    $('#dinamicFooter').html(footer);
-}
-
 $(document).ready(function () {
+    if ($('#dinamicSidebar').length) {
+        $('#dinamicSidebar').html(header);
+    }
+    if ($('#dinamicTopbar').length) {
+        $('#dinamicTopbar').html(nav);
+    }
+    if ($('#dinamicFooter').length) {
+        $('#dinamicFooter').html(footer);
+    }
     $("#overlayApi").fadeOut(1000);
 });
