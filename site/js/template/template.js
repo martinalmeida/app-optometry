@@ -47,8 +47,8 @@ const menu = `<hr class="sidebar-divider">
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Usuarios y pacientes:</h6>
-                            <a class="collapse-item" href="./views/users">Usuarios</a>
-                            <a class="collapse-item" href="./views/patients">Pacientes</a>
+                            <a class="collapse-item" href="../../views/users">Usuarios</a>
+                            <a class="collapse-item" href="../../views/patients">Pacientes</a>
                         </div>
                     </div>
                 </li>

@@ -18,7 +18,7 @@ const getUsers = async () => {
 
 const initializeDataTable = (users) => {
     $("#dataTableUsers").DataTable({
-        data: users,
+        data: users.users,
         columns: [
             { title: "ID", data: "id" },
             { title: "Nombre", data: "name" },
