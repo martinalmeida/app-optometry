@@ -76,12 +76,54 @@ const menu = `<hr class="sidebar-divider">
                     </div>
                 </div>`;
 
+const nav = `<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="userNameSession"></span>
+                                <img class="img-profile rounded-circle"
+                                    src="../../img/undraw_profile.svg">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <button class="dropdown-item" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar Sesion
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>`;
+
+const footer = `<footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 2024</span>
+                        </div>
+                    </div>
+                </footer>
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>`;
+
 if ($('#dinamicSidebar').length && nombreArchivo === 'home.html') {
     $('#dinamicSidebar').html(headerHome + menu);
 }
 
 if ($('#dinamicSidebar').length && nombreArchivo !== 'home.html') {
     $('#dinamicSidebar').html(headerView + menu);
+}
+
+if ($('#dinamicTopbar').length) {
+    $('#dinamicTopbar').html(nav);
+}
+
+if ($('#dinamicFooter').length) {
+    $('#dinamicFooter').html(footer);
 }
 
 $(document).ready(function () {
