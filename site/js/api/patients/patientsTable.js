@@ -17,7 +17,7 @@ const getUsers = async () => {
 };
 
 const initializeDataTable = (users) => {
-    $("#dataTableUsers").DataTable({
+    $("#dataTable").DataTable({
         data: users.users,
         columns: [
             { title: "ID", data: "id" },
@@ -112,10 +112,11 @@ const deletedRegister = async (id) => {
     });
 };
 
-
 const refreshTable = async () => {
-    const table = $("#dataTableUsers").DataTable();
-    table.rows().remove().draw();
+    const table = $("#dataTable").DataTable();
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+        table.clear().destroy();
+    }
     const users = await getUsers();
-    table.rows.add(users).draw();
+    initializeDataTable(users);
 }

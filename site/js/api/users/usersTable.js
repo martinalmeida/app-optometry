@@ -17,7 +17,7 @@ const getUsers = async () => {
 };
 
 const initializeDataTable = (users) => {
-    $("#dataTableUsers").DataTable({
+    $("#dataTable").DataTable({
         data: users.users,
         columns: [
             { title: "ID", data: "id" },
@@ -36,7 +36,7 @@ const initializeDataTable = (users) => {
                 data: null,
                 render: function (data, type, row) {
                     return `<div class="btn-group btn-group-sm" role="group">
-                                <button type="button" class="btn btn-primary btn-circle" onclick="changeStatus(${data.id})" title="Cambiar estado">
+                                <button type="button" class="btn btn-primary btn-circle" onclick="changeStatus(${data.id}, ${data.status})" title="Cambiar estado">
                                     <i class="fas fa-exchange-alt"></i>
                                 </button>
                                 <button type="button" class="btn btn-success btn-circle" onclick="updatedRegister(${data.id})" title="Editar registro">
@@ -63,7 +63,7 @@ const createdRegister = () => {
     window.location.href = "./create.html";
 };
 
-const changeStatus = async (id) => {
+const changeStatus = async (id, status) => {
     Swal.fire({
         title: "Deseas cambiar el estado?",
         text: "Se cambiara el estado del usuario",
@@ -74,7 +74,10 @@ const changeStatus = async (id) => {
         confirmButtonText: "Si, cambiar",
     }).then(async (result) => {
         if (result.isConfirmed) {
-            // await core("auth/logout", "POST", data);
+            const data = {
+                status,
+            }
+            await core(`user/inactivate/${id}`, "PATCH", data, jwtApi);
             await refreshTable();
         }
     });
@@ -110,10 +113,11 @@ const deletedRegister = async (id) => {
     });
 };
 
-
 const refreshTable = async () => {
-    const table = $("#dataTableUsers").DataTable();
-    table.rows().remove().draw();
+    const table = $("#dataTable").DataTable();
+    if ($.fn.DataTable.isDataTable("#dataTable")) {
+        table.clear().destroy();
+    }
     const users = await getUsers();
-    table.rows.add(users).draw();
+    initializeDataTable(users);
 }

@@ -17,6 +17,7 @@ $(document).ready(async () => {
 
 const savedRegister = async () => {
     const dataStore = JSON.parse(localStorage.getItem("dataStore"));
+    const sesionUser = JSON.parse(userApi)
     let name = $("#name").val();
     let lastname = $("#lastname").val();
     let email = $("#email").val();
@@ -27,7 +28,9 @@ const savedRegister = async () => {
         name,
         lastname,
         email,
-        password
+        password,
+        id_role: 2,
+        id_comp: sesionUser.id_comp
     }
 
     if (dataStore.id == null && validated) {
