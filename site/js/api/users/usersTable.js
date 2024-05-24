@@ -1,26 +1,17 @@
 $(document).ready(async () => {
     sesion();
     setUserSession();
-    const users = await getUsers();
-    initializeDataTable(users);
+    await getUsers();
     localStorage.removeItem("dataStore");
 });
 
 const getUsers = async () => {
     try {
         const response = await core("user", "GET", null, jwtApi);
-        return response;
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        return [];
-    }
-};
-
-const initializeDataTable = (users) => {
-    $("#dataTable").DataTable({
-        data: users.users,
-        columns: [
-            { title: "ID", data: "id" },
+        dataTableCreate(
+            "dataTable",
+            response.users,
+            [{ title: "ID", data: "id" },
             { title: "Nombre", data: "name" },
             { title: "Apellidos", data: "lastname" },
             { title: "Correo", data: "email" },
@@ -30,26 +21,11 @@ const initializeDataTable = (users) => {
                 render: function (data) {
                     return data ? "Activo" : "Inactivo";
                 },
-            },
-            {
-                title: "Acciones",
-                data: null,
-                render: function (data, type, row) {
-                    return `<div class="btn-group btn-group-sm" role="group">
-                                <button type="button" class="btn btn-primary btn-circle" onclick="changeStatus(${data.id}, ${data.status})" title="Cambiar estado">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-success btn-circle" onclick="updatedRegister(${data.id})" title="Editar registro">
-                                    <i class="fas fa-pen"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-circle" onclick="deletedRegister(${data.id})" title="Eliminar registro">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>`;
-                },
-            },
-        ],
-    });
+            }]
+        );
+    } catch (error) {
+        console.error("Error fetching users:", error);
+    }
 };
 
 const createdRegister = () => {
@@ -114,10 +90,6 @@ const deletedRegister = async (id) => {
 };
 
 const refreshTable = async () => {
-    const table = $("#dataTable").DataTable();
-    if ($.fn.DataTable.isDataTable("#dataTable")) {
-        table.clear().destroy();
-    }
-    const users = await getUsers();
-    initializeDataTable(users);
+    $("#dataTable").DataTable().clear().destroy();
+    await getUsers();
 }

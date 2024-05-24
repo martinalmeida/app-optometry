@@ -113,10 +113,6 @@ const deletedRegister = async (id) => {
 };
 
 const refreshTable = async () => {
-    const table = $("#dataTable").DataTable();
-    if ($.fn.DataTable.isDataTable("#dataTable")) {
-        table.clear().destroy();
-    }
-    const users = await getUsers();
-    initializeDataTable(users);
+    $("#dataTable").DataTable().clear().destroy();
+    await getUsers();
 }

@@ -51,6 +51,55 @@ const core = async (endPoint, method, data, jwtApi = null) => {
     }
 };
 
+const dataTableCreate = (id, data, columns) => {
+    $(`#${id}`).DataTable({
+        processing: true,
+        responsive: true,
+        orderClasses: true,
+        deferRender: true,
+        lengthChange: false,
+        pageLength: 10,
+        data: data,
+        dom:
+            "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        columns: [
+            ...columns,
+            {
+                title: "Acciones",
+                data: null,
+                render: function (data, type, row) {
+                    return `<div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-primary btn-circle" onclick="changeStatus(${data.id}, ${data.status})" title="Cambiar estado">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-circle" onclick="updatedRegister(${data.id})" title="Editar registro">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-circle" onclick="deletedRegister(${data.id})" title="Eliminar registro">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>`;
+                },
+            },
+        ],
+        language: {
+            lengthMenu: "Mostrar _MENU_ registros",
+            zeroRecords: "No se encontraron resultados",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior",
+            },
+            sProcessing: "Procesando...",
+        }
+    });
+}
 
 const validateForm = (fields) => {
     if (fields.length === 0) {
