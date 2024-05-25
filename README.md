@@ -1,27 +1,41 @@
-# NGINX Example
+---
+title: Vite + React
+description: The default Vite + React starter, utilizing `Caddy` to serve the built app
+tags:
+  - node
+  - vite
+  - react
+---
 
-This example is deploys a site using [NGINX](https://www.nginx.com/)
+# Vite + React + Caddy
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/o3MbZe)
+This is a [Vite + React](https://vitejs.dev/guide/#trying-vite-online) starter that uses [Caddy](https://caddyserver.com/).
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/NeiLty?referralCode=ySCnWl)
 
 ## ✨ Features
 
-- NGINX
-- Static Site
+- Vite + React
+- [Caddy](https://caddyserver.com/)
 
 ## 💁‍♀️ How to use
 
-- Open the `site/index.html` in the browser
+- Install required dependencies with `npm install`
+- Start the server for local development `npm run dev`
 
-## 📝 Notes
+## ❓ Why use `Caddy` when deploying to Railway?
 
-By default the `site/` directory gets deployed as a static site. This can be modified by changing the `Dockerfile`.
+Caddy is a powerful, enterprise-ready, open source web server, and therefore Caddy is far better suited to serve websites than Vite is, using Caddy will result in much less memory and cpu usage compared to serving with Vite (much lower running costs too)
 
-The site is deployed using the default NGINX configuration. This can be overridden with a custom conf file by adding
+To see how this is achieved with nixpacks, check out the fully documented nixpacks.toml file in this repository
 
-```
-COPY nginx.conf /etc/nginx/nginx.conf
-```
+The configuration for Caddy is called a Caddyfile, and you can edit that file to further suite your needs, by default it comes configured to serve a single page app for React, and to also gzip the responses
 
-to the end of the Dockerfile. For more information, [read the docs](https://hub.docker.com/_/nginx).
+**Relevant Caddy documentation:**
+
+- [The Caddyfile](https://caddyserver.com/docs/caddyfile)
+- [Caddyfile Directives](https://caddyserver.com/docs/caddyfile/directives)
+- [root](https://caddyserver.com/docs/caddyfile/directives/root)
+- [encode](https://caddyserver.com/docs/caddyfile/directives/encode)
+- [file_server](https://caddyserver.com/docs/caddyfile/directives/file_server)
+- [try_files](https://caddyserver.com/docs/caddyfile/directives/try_files)
