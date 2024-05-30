@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Outlet, Link } from "react-router-dom";
 import {
   FaUserCircle,
@@ -11,21 +11,24 @@ import {
 export default function App({ children }) {
   const navigate = useNavigate();
 
+  const [user, setUser] = useState(
+    JSON.parse(window.localStorage.getItem("user"))
+  );
+
   useEffect(() => {
     document.title = "OptometryApp - Inicio";
-
     if (window.localStorage.getItem("tokenJwt") === null) {
       navigate("/");
     }
     return () => {
       document.title = "OptometryApp";
     };
-  });
+  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col">
       <header className="fixed top-0 left-0 w-full bg-indigo-500 text-gray-100 flex justify-between items-center px-6 py-4">
-        <div className="text-xl font-semibold">Nombre de Usuario</div>
+        <div className="text-xl font-semibold">{user.name}</div>
         <div>
           <FaUserCircle size={24} className="text-white" />
         </div>
