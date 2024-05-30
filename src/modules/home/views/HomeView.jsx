@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <>
-      <h2>Home Page</h2>
+      <h2>{import.meta.env.VITE_APP_SERVER}</h2>
     </>
   );
 }

@@ -1,30 +1,35 @@
+import { useState } from "react";
+
+import InputBase from "../../shared/components/InputBase.jsx";
+import BtnBase from "../../shared/components/BtnBase.jsx";
+import AlertModal from "../../shared/components/AlertModal.jsx";
+
 export default function App() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <>
-      <div class="mb-2">
-        <label class="text-sm">Name</label>
-        <input
-          type="text"
-          placeholder="Name"
-          class="w-full p-2 mt-1 bg-gray-200 rounded-md focus:outline-none"
-        />
-      </div>
-
-      <div class="mt-2 mb-3">
-        <label class="text-sm">Password</label>
-        <input
-          type="password"
-          placeholder="Password"
-          class="w-full p-2 mt-1 bg-gray-200 rounded-md focus:outline-none"
-        />
-      </div>
-
-      <button
-        class="border-none bg-blue-800 py-2 px-3 text-white roudend-sm w-full mt-2 rounded-md hover:bg-blue-700 mb-5"
-        type="submit"
-      >
-        Sign In
-      </button>
+      <InputBase
+        label="Nombre"
+        type="text"
+        placeholder="escriba su nombre"
+        name="name"
+      />
+      <InputBase
+        label="Contraseña"
+        type="password"
+        placeholder="ingrese su contraseña"
+        name="password"
+      />
+      <BtnBase onClickFunction={openModal} type="login">
+        Iniciar Sesion
+      </BtnBase>
+      <AlertModal isOpen={isModalOpen} onClose={closeModal} title="My Modal">
+        <p>This is a modal alert. You can put any content here.</p>
+      </AlertModal>
     </>
   );
 }
