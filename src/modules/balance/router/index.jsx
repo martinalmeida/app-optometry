@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
-import LayoutHome from "../layout/LayoutHome.jsx";
+import LayoutBalance from "../layout/LayoutBalance.jsx";
 import HomeView from "../views/HomeView.jsx";
 
-const routerHome = [
+const routerBalance = [
   {
-    path: "home",
-    element: <LayoutHome />,
+    path: "balance",
+    element: <LayoutBalance />,
     children: [
       {
         index: true,
@@ -19,4 +19,4 @@ const routerHome = [
   },
 ];
 
-export default routerHome;
+export default routerBalance;

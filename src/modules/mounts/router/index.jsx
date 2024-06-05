@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
-import LayoutHome from "../layout/LayoutHome.jsx";
+import LayoutMount from "../layout/LayoutMount.jsx";
 import HomeView from "../views/HomeView.jsx";
 
-const routerHome = [
+const routerMounts = [
   {
-    path: "home",
-    element: <LayoutHome />,
+    path: "mounts",
+    element: <LayoutMount />,
     children: [
       {
         index: true,
@@ -19,4 +19,4 @@ const routerHome = [
   },
 ];
 
-export default routerHome;
+export default routerMounts;

@@ -1,6 +1,11 @@
-import { GoAlert } from "react-icons/go";
-
-export default function AlertModal({ isOpen, onClose, title, children }) {
+export default function Modal({
+  children,
+  isOpen,
+  onClose,
+  title,
+  onAction,
+  btnText,
+}) {
   if (!isOpen) return null;
 
   return (
@@ -15,11 +20,14 @@ export default function AlertModal({ isOpen, onClose, title, children }) {
             &times;
           </button>
         </div>
-        <div className="flex">
-          <GoAlert color="orange" size={24} />
-          {children}
-        </div>
+        <div className="flex">{children}</div>
         <div className="mt-4 text-right">
+          <button
+            onClick={onAction}
+            className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 mx-2"
+          >
+            {btnText}
+          </button>
           <button
             onClick={onClose}
             className="px-4 py-2 bg-indigo-800 text-white rounded hover:bg-indigo-700"

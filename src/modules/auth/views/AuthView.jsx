@@ -39,11 +39,7 @@ export default function App() {
       </BtnBase>
 
       <Spinner loader={isLoading} />
-      <AlertModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        title="Alerta de Error"
-      >
+      <AlertModal isOpen={isModalOpen} onClose={closeModal} title="Error">
         <p>{errorText}</p>
       </AlertModal>
     </>

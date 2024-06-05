@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
-import LayoutHome from "../layout/LayoutHome.jsx";
+import LayoutHistory from "../layout/LayoutHistory.jsx";
 import HomeView from "../views/HomeView.jsx";
 
-const routerHome = [
+const routerHistory = [
   {
-    path: "home",
-    element: <LayoutHome />,
+    path: "history",
+    element: <LayoutHistory />,
     children: [
       {
         index: true,
@@ -19,4 +19,4 @@ const routerHome = [
   },
 ];
 
-export default routerHome;
+export default routerHistory;
