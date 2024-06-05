@@ -1,3 +1,5 @@
+import DataTable from "../../shared/components/DataTable.jsx";
+
 export default function Home() {
   return (
     <section className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg">
@@ -5,6 +7,7 @@ export default function Home() {
         <span className="block text-sm text-blue-700">tabla</span>
         <span className="block">Tabla de Monturas</span>
       </h2>
+      <DataTable />
     </section>
   );
 }
