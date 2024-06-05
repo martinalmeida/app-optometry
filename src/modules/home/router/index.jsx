@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import LayoutHome from "../layout/LayoutHome.jsx";
 import HomeView from "../views/HomeView.jsx";
+import ProfileView from "../views/ProfileView.jsx";
 
 const routerHome = [
   {
@@ -14,6 +15,10 @@ const routerHome = [
       {
         path: "inicio",
         element: <HomeView />,
+      },
+      {
+        path: "perfil",
+        element: <ProfileView />,
       },
     ],
   },

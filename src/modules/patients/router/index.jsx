@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import LayoutPatient from "../layout/LayoutPatient.jsx";
 import HomeView from "../views/HomeView.jsx";
+import SearchView from "../views/SearchView.jsx";
 
 const routerPatient = [
   {
@@ -14,6 +15,10 @@ const routerPatient = [
       {
         path: "inicio",
         element: <HomeView />,
+      },
+      {
+        path: "busqueda",
+        element: <SearchView />,
       },
     ],
   },

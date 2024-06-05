@@ -23,7 +23,7 @@ export default function App({ children, titulo }) {
     <div className="min-h-screen flex flex-col">
       <div className="flex-1 p-6 bg-gradient-to-br from-indigo-100 via-gray-50 to-indigo-100 flex flex-col items-center justify-center">
         <h1 className="text-3xl font-medium text-indigo-800 mb-4">{titulo}</h1>
-        <div className="flex-1 w-full flex items-center justify-center">
+        <div className="flex-1 w-full flex items-center justify-center mb-20">
           <Outlet />
           {children}
         </div>
@@ -36,7 +36,10 @@ export default function App({ children, titulo }) {
             </Link>
           </li>
           <li>
-            <Link to="/home" className="text-white hover:text-indigo-300">
+            <Link
+              to="/patients/busqueda"
+              className="text-white hover:text-indigo-300"
+            >
               <FaSearch size={21} />
             </Link>
           </li>
@@ -61,7 +64,10 @@ export default function App({ children, titulo }) {
             </Link>
           </li>
           <li>
-            <Link to="/home" className="text-white hover:text-indigo-300">
+            <Link
+              to="/home/perfil"
+              className="text-white hover:text-indigo-300"
+            >
               <FaUserCircle size={24} />
             </Link>
           </li>
