@@ -8,8 +8,18 @@ export function patientLogic() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    name: "",
+    lastname: "",
+    tp_doc: "",
+    num_doc: 0,
+    gender: "",
+    date_of_birth: "",
+    age: 0,
+    phone: "",
+    address: "",
     email: "",
-    password: "",
+    id_user: 0,
+    id_comp: 0,
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -18,13 +28,6 @@ export function patientLogic() {
 
   const closeModal = () => setModalOpen(false);
 
-  /**
-   * Updates the form data state with the provided name-value pair.
-   *
-   * @param {string} name - The name of the input field.
-   * @param {string} value - The value of the input field.
-   * @return {void} This function does not return anything.
-   */
   const handleInputChange = (name, value) => {
     setFormData({
       ...formData,
@@ -32,13 +35,7 @@ export function patientLogic() {
     });
   };
 
-  /**
-   * Submits the form data to the server for authentication.
-   *
-   * @return {Promise<void>} A promise that resolves when the form is submitted successfully,
-   * or rejects with an error if there is an issue with the form data or the server response.
-   */
-  const onSubmit = async () => {
+  const onSubmitCreated = async () => {
     try {
       const isValid = formValidator(formData, ["email", "password"]);
 
@@ -69,7 +66,7 @@ export function patientLogic() {
     handleInputChange,
     closeModal,
     isModalOpen,
-    onSubmit,
+    onSubmitCreated,
     errorText,
   };
 }

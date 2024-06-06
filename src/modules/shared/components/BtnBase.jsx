@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaSearch, FaSave } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
+import { MdOutlineArrowBackIos } from "react-icons/md";
 
 export default function BtnBase({
   children,
@@ -49,6 +50,17 @@ export default function BtnBase({
         <FaSave size={20} className="mr-2" />
         {children}
       </button>
+    );
+  }
+
+  if (type === "cancel") {
+    className = `flex items-center justify-center border-none bg-indigo-600 py-2 px-3 text-white rounded-lg w-auto mt-8 hover:bg-indigo-700 mb-5 ${customClass}`;
+
+    return (
+      <Link to={onClickFunction} className={className}>
+        <MdOutlineArrowBackIos size={20} className="mr-2" />
+        {children}
+      </Link>
     );
   }
 }

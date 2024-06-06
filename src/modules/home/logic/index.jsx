@@ -4,7 +4,7 @@ import { formValidator } from "../../../lib/formValidator";
 
 export function homeLogic() {
   const [formData, setFormData] = useState({
-    id: "",
+    id: 0,
     name: "",
     lastname: "",
     email: "",

@@ -3,7 +3,7 @@ import { sharedLogic } from "../logic";
 import InputBase from "../../shared/components/InputBase.jsx";
 import BtnBase from "../../shared/components/BtnBase.jsx";
 
-export default function DataTable({ thead = [], tbody = [] }) {
+export default function DataTable({ createRoute, thead = [], tbody = [] }) {
   const {
     search,
     handleInputChange,
@@ -22,7 +22,7 @@ export default function DataTable({ thead = [], tbody = [] }) {
     <div className="relative overflow-x-auto">
       <div className="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4">
         <div className="relative">
-          <BtnBase onClickFunction="/home" type="add">
+          <BtnBase onClickFunction={createRoute} type="add">
             Agregar registro
           </BtnBase>
         </div>

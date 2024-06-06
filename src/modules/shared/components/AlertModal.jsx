@@ -1,4 +1,4 @@
-import { GoAlert } from "react-icons/go";
+import { CiCircleAlert } from "react-icons/ci";
 
 export default function AlertModal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
@@ -15,8 +15,8 @@ export default function AlertModal({ isOpen, onClose, title, children }) {
             &times;
           </button>
         </div>
-        <div className="flex">
-          <GoAlert color="orange" size={24} />
+        <div className="flex gap-2">
+          <CiCircleAlert color="orange" size={24} />
           {children}
         </div>
         <div className="mt-4 text-right">

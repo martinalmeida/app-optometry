@@ -1,61 +1,55 @@
-import { useEffect } from "react";
-import { homeLogic } from "../logic";
-import { SesionLocal } from "../../shared/helpers/sesionLocal";
+import { patientLogic } from "../logic";
 
 import InputBase from "../../shared/components/InputBase.jsx";
+import SelectInput from "../../shared/components/SelectInput.jsx";
 import BtnBase from "../../shared/components/BtnBase.jsx";
 import Spinner from "../../shared/components/Spinner.jsx";
 import AlertModal from "../../shared/components/AlertModal.jsx";
 
-export default function Profile() {
+export default function CreatePatient() {
   const {
     isLoading,
     formData,
-    setFormData,
     handleInputChange,
     closeModal,
     isModalOpen,
-    onSubmit,
+    onSubmitCreated,
     errorText,
-  } = homeLogic();
-
-  const { user } = SesionLocal();
-
-  useEffect(() => {
-    setFormData({
-      id: user.id,
-      name: user.name,
-      lastname: user.lastname,
-      email: user.email,
-      password: "",
-      id_role: user.id_role,
-      id_comp: user.id_comp,
-    });
-    return () => {};
-  }, []);
+  } = patientLogic();
 
   return (
     <section className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold leading-none text-gray-900 space-y-1">
         <span className="block text-sm text-blue-700">formulario</span>
-        <span className="block">Perfil de usuario</span>
+        <span className="block">Registro de Paciente</span>
       </h2>
       <main className="m-2 grid grid-cols-1 gap-6 md:grid-cols-2">
         <InputBase
-          label="Nombre de usuario"
+          label="Nombre de paciente"
           type="text"
-          placeholder="ingrese su nombre de usuario"
+          placeholder="ingrese el nombre del paciente"
           name="name"
           value={formData.name}
           onChange={(value) => handleInputChange("name", value)}
         />
         <InputBase
-          label="Apellidos de usuario"
+          label="Apellidos de paciente"
           type="text"
-          placeholder="ingrese su apellidos de usuario"
+          placeholder="ingrese los apellidos del paciente"
           name="lastname"
           value={formData.lastname}
           onChange={(value) => handleInputChange("lastname", value)}
+        />
+        <SelectInput
+          label="Select an option"
+          name="email"
+          value={formData.email}
+          onChange={(value) => handleInputChange("email", value)}
+          options={[
+            { value: "option1", label: "Option 1" },
+            { value: "option2", label: "Option 2" },
+            { value: "option3", label: "Option 3" },
+          ]}
         />
         <InputBase
           label="Correo Electronico"
@@ -67,16 +61,19 @@ export default function Profile() {
         />
         <InputBase
           label="Contraseña"
-          type="password"
+          type="date"
           placeholder="ingrese su contraseña"
           name="password"
           value={formData.password}
           onChange={(value) => handleInputChange("password", value)}
         />
       </main>
-      <div className="flex justify-end m-2">
-        <BtnBase onClickFunction={() => onSubmit(formData)} type="save">
-          Actualizar
+      <div className="flex justify-end m-2 gap-2">
+        <BtnBase onClickFunction="/patients" type="cancel">
+          Cancelar
+        </BtnBase>
+        <BtnBase onClickFunction={() => onSubmitCreated(formData)} type="save">
+          Registrar
         </BtnBase>
       </div>
       <Spinner loader={isLoading} />

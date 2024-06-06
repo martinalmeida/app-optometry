@@ -2,7 +2,7 @@ export default function Error404() {
   return (
     <div className="bg-indigo-900 relative overflow-hidden h-screen">
       <img
-        src="https://external-preview.redd.it/4MddL-315mp40uH18BgGL2-5b6NIPHcDMBSWuN11ynM.jpg?width=960&crop=smart&auto=webp&s=b98d54a43b3dac555df398588a2c791e0f3076d9"
+        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c82b5815-a4a2-4540-8dcd-d9fa8166dafa/da0pcnv-6c2bf553-576c-490c-ba3e-8316ee8b1002.jpg/v1/fill/w_1192,h_670,q_70,strp/minimal_atom_wallpaper_1920x1080_by_dssdiego_da0pcnv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcL2M4MmI1ODE1LWE0YTItNDU0MC04ZGNkLWQ5ZmE4MTY2ZGFmYVwvZGEwcGNudi02YzJiZjU1My01NzZjLTQ5MGMtYmEzZS04MzE2ZWU4YjEwMDIuanBnIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.11121GfoHNufVhRYdrmGAhugaMTkejzG3g-tB-e95sI"
         className="absolute h-full w-full object-cover"
       />
       <div className="inset-0 bg-black opacity-25 absolute"></div>

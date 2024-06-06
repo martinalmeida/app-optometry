@@ -14,7 +14,7 @@ export default function Home() {
         <span className="block text-sm text-blue-700">tabla</span>
         <span className="block">Tabla de Pacientes</span>
       </h2>
-      <DataTable thead={head} tbody={body} />
+      <DataTable createRoute="/patients/create" thead={head} tbody={body} />
     </section>
   );
 }
