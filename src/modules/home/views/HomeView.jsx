@@ -5,7 +5,7 @@ export default function Home() {
     <section className="grid grid-cols-1 gap-8 md:grid-cols-2">
       <Link
         to="/patients"
-        className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg"
+        className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg"
       >
         <h2 className="text-2xl font-bold leading-none text-gray-900 space-y-1">
           <span className="block text-sm text-blue-700">modulo</span>
@@ -15,7 +15,7 @@ export default function Home() {
       </Link>
       <Link
         to="/history"
-        className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg"
+        className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg"
       >
         <h2 className="text-2xl font-bold leading-none text-gray-900 space-y-1">
           <span className="block text-sm text-blue-700">modulo</span>
@@ -25,7 +25,7 @@ export default function Home() {
       </Link>
       <Link
         to="/mounts"
-        className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg"
+        className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg"
       >
         <h2 className="text-2xl font-bold leading-none text-gray-900 space-y-1">
           <span className="block text-sm text-blue-700">modulo</span>
@@ -35,7 +35,7 @@ export default function Home() {
       </Link>
       <Link
         to="/balance"
-        className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg"
+        className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg"
       >
         <h2 className="text-2xl font-bold leading-none text-gray-900 space-y-1">
           <span className="block text-sm text-blue-700">modulo</span>

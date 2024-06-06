@@ -18,19 +18,6 @@ export function sharedLogic() {
     setSearch(event.target.value);
   };
 
-  const autoLogin = async () => {
-    try {
-      const user = JSON.parse(window.localStorage.getItem("user"));
-
-      setIsLoading(true);
-      await coreApi().get(`user/${user.id}`);
-      setIsLoading(false);
-    } catch (error) {
-      window.localStorage.clear();
-      navigate("/login");
-    }
-  };
-
   const outSesion = async () => {
     try {
       const payload = {
@@ -55,7 +42,6 @@ export function sharedLogic() {
     isLoading,
     openModal,
     closeModal,
-    autoLogin,
     outSesion,
     search,
     handleInputChange,

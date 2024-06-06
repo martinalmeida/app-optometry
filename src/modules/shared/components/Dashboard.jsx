@@ -11,20 +11,13 @@ import { sharedLogic } from "../logic";
 
 export default function App({ children, titulo }) {
   const navigate = useNavigate();
-  const {
-    isModalOpen,
-    isLoading,
-    openModal,
-    closeModal,
-    autoLogin,
-    outSesion,
-  } = sharedLogic();
+  const { isModalOpen, isLoading, openModal, closeModal, outSesion } =
+    sharedLogic();
 
   useEffect(() => {
     if (window.localStorage.getItem("tokenJwt") === null) {
       navigate("/");
     }
-    autoLogin();
     return () => {};
   }, []);
 

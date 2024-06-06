@@ -33,7 +33,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg">
+    <section className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold leading-none text-gray-900 space-y-1">
         <span className="block text-sm text-blue-700">formulario</span>
         <span className="block">Perfil de usuario</span>
@@ -71,11 +71,12 @@ export default function Home() {
           value={formData.password}
           onChange={(value) => handleInputChange("password", value)}
         />
+      </main>
+      <div className="flex justify-end m-2">
         <BtnBase onClickFunction={() => onSubmit(formData)} type="save">
           Actualizar
         </BtnBase>
-      </main>
-
+      </div>
       <Spinner loader={isLoading} />
       <AlertModal isOpen={isModalOpen} onClose={closeModal} title="Alerta">
         <p>{errorText}</p>
