@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { coreApi } from "../../../api/coreApi";
 import { formValidator } from "../../../lib/formValidator";
 
 export function homeLogic() {
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
+    id: "",
+    name: "",
+    lastname: "",
     email: "",
     password: "",
+    id_role: "",
+    id_comp: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -18,13 +19,6 @@ export function homeLogic() {
 
   const closeModal = () => setModalOpen(false);
 
-  /**
-   * Updates the form data state with the provided name-value pair.
-   *
-   * @param {string} name - The name of the input field.
-   * @param {string} value - The value of the input field.
-   * @return {void} This function does not return anything.
-   */
   const handleInputChange = (name, value) => {
     setFormData({
       ...formData,
@@ -32,29 +26,36 @@ export function homeLogic() {
     });
   };
 
-  /**
-   * Submits the form data to the server for authentication.
-   *
-   * @return {Promise<void>} A promise that resolves when the form is submitted successfully,
-   * or rejects with an error if there is an issue with the form data or the server response.
-   */
   const onSubmit = async () => {
     try {
-      const isValid = formValidator(formData, ["email", "password"]);
+      const isValid = formValidator(formData, [
+        "name",
+        "lastname",
+        "email",
+        "password",
+      ]);
 
       if (!isValid) {
         setModalOpen(true);
         setErrorText("Todos los campos son obligatorios");
         return;
       }
+      const payload = {
+        name: formData.name,
+        lastname: formData.lastname,
+        email: formData.email,
+        password: formData.password,
+        id_role: formData.id_role,
+        id_comp: formData.id_comp,
+      };
+
       setIsLoading(true);
-      const response = await coreApi().post("auth/login", formData);
+      const response = await coreApi().put(`user/${formData.id}`, payload);
       setIsLoading(false);
 
-      if (response && response.status === 201) {
-        window.localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.localStorage.setItem("tokenJwt", response.data.token);
-        navigate("/home");
+      if (response && response.status === 200) {
+        setModalOpen(true);
+        setErrorText(response.data.message);
       }
     } catch (error) {
       setIsLoading(false);
@@ -66,6 +67,7 @@ export function homeLogic() {
   return {
     isLoading,
     formData,
+    setFormData,
     handleInputChange,
     closeModal,
     isModalOpen,

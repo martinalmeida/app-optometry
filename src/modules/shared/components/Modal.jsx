@@ -30,7 +30,7 @@ export default function Modal({
           </button>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-indigo-800 text-white rounded hover:bg-indigo-700"
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
           >
             cerrar
           </button>

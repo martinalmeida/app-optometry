@@ -1,8 +1,36 @@
+import { useEffect } from "react";
 import { homeLogic } from "../logic";
+
 import InputBase from "../../shared/components/InputBase.jsx";
+import BtnBase from "../../shared/components/BtnBase.jsx";
+import Spinner from "../../shared/components/Spinner.jsx";
+import AlertModal from "../../shared/components/AlertModal.jsx";
 
 export default function Home() {
-  const { formData, handleInputChange } = homeLogic();
+  const {
+    isLoading,
+    formData,
+    setFormData,
+    handleInputChange,
+    closeModal,
+    isModalOpen,
+    onSubmit,
+    errorText,
+  } = homeLogic();
+
+  useEffect(() => {
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    setFormData({
+      id: user.id,
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      password: "",
+      id_role: user.id_role,
+      id_comp: user.id_comp,
+    });
+    return () => {};
+  }, []);
 
   return (
     <section className="sticky w-full px-8 py-12 bg-white border rounded-lg shadow-lg">
@@ -11,6 +39,22 @@ export default function Home() {
         <span className="block">Perfil de usuario</span>
       </h2>
       <main className="m-2 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <InputBase
+          label="Nombre de usuario"
+          type="text"
+          placeholder="ingrese su nombre de usuario"
+          name="name"
+          value={formData.name}
+          onChange={(value) => handleInputChange("name", value)}
+        />
+        <InputBase
+          label="Apellidos de usuario"
+          type="text"
+          placeholder="ingrese su apellidos de usuario"
+          name="lastname"
+          value={formData.lastname}
+          onChange={(value) => handleInputChange("lastname", value)}
+        />
         <InputBase
           label="Correo Electronico"
           type="email"
@@ -27,7 +71,15 @@ export default function Home() {
           value={formData.password}
           onChange={(value) => handleInputChange("password", value)}
         />
+        <BtnBase onClickFunction={() => onSubmit(formData)} type="save">
+          Actualizar
+        </BtnBase>
       </main>
+
+      <Spinner loader={isLoading} />
+      <AlertModal isOpen={isModalOpen} onClose={closeModal} title="Alerta">
+        <p>{errorText}</p>
+      </AlertModal>
     </section>
   );
 }

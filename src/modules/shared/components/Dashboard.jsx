@@ -6,16 +6,25 @@ import { MdLibraryBooks } from "react-icons/md";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaSearch, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import Modal from "./Modal.jsx";
+import Spinner from "../../shared/components/Spinner.jsx";
 import { sharedLogic } from "../logic";
 
 export default function App({ children, titulo }) {
   const navigate = useNavigate();
-  const { isModalOpen, openModal, closeModal, outSesion } = sharedLogic();
+  const {
+    isModalOpen,
+    isLoading,
+    openModal,
+    closeModal,
+    autoLogin,
+    outSesion,
+  } = sharedLogic();
 
   useEffect(() => {
     if (window.localStorage.getItem("tokenJwt") === null) {
       navigate("/");
     }
+    autoLogin();
     return () => {};
   }, []);
 
@@ -87,6 +96,7 @@ export default function App({ children, titulo }) {
       >
         <p>¿Deseas cerrar la sesión?</p>
       </Modal>
+      <Spinner loader={isLoading} />
     </div>
   );
 }

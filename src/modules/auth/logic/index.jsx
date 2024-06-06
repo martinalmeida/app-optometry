@@ -18,13 +18,6 @@ export function authLogic() {
 
   const closeModal = () => setModalOpen(false);
 
-  /**
-   * Updates the form data state with the provided name-value pair.
-   *
-   * @param {string} name - The name of the input field.
-   * @param {string} value - The value of the input field.
-   * @return {void} This function does not return anything.
-   */
   const handleInputChange = (name, value) => {
     setFormData({
       ...formData,
@@ -32,12 +25,6 @@ export function authLogic() {
     });
   };
 
-  /**
-   * Submits the form data to the server for authentication.
-   *
-   * @return {Promise<void>} A promise that resolves when the form is submitted successfully,
-   * or rejects with an error if there is an issue with the form data or the server response.
-   */
   const onSubmit = async () => {
     try {
       const isValid = formValidator(formData, ["email", "password"]);
