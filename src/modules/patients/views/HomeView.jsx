@@ -1,12 +1,19 @@
+import { useEffect, useState } from "react";
+import { patientLogic } from "../logic";
 import DataTable from "../../shared/components/DataTable.jsx";
 
 export default function Home() {
-  const head = ["Cedula", "Nombres", "Apellidos"];
-  const body = [
-    ["123456789", "Juan", "Perez"],
-    ["987654321", "Maria", "Gierre"],
-    ["456789123", "Carlos", "Rodriguez"],
-  ];
+  const { dataTable } = patientLogic();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await dataTable();
+      setData(result);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className="sticky w-full px-8 py-12 bg-white border-t-4 border-indigo-700 rounded-lg shadow-lg">
@@ -14,7 +21,7 @@ export default function Home() {
         <span className="block text-sm text-blue-700">tabla</span>
         <span className="block">Tabla de Pacientes</span>
       </h2>
-      <DataTable createRoute="/patients/create" thead={head} tbody={body} />
+      <DataTable createRoute="/patients/create" data={data} />
     </section>
   );
 }

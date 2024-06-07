@@ -38,6 +38,16 @@ export function patientLogic() {
     });
   };
 
+  const dataTable = async () => {
+    try {
+      const response = await coreApi().get("patient");
+      return response.data.Patient;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  };
+
   const onSubmitCreated = async () => {
     try {
       const isValid = formValidator(formData, [
@@ -58,11 +68,7 @@ export function patientLogic() {
       const response = await coreApi().post("patient", formData);
       setIsLoading(false);
 
-      if (response && response.status === 201) {
-        setModalOpen(true);
-        setErrorText(response.data.message);
-        navigate("/patients");
-      }
+      if (response && response.status === 201) return navigate("/patients");
     } catch (error) {
       setIsLoading(false);
       setModalOpen(true);
@@ -76,6 +82,7 @@ export function patientLogic() {
     handleInputChange,
     closeModal,
     isModalOpen,
+    dataTable,
     onSubmitCreated,
     errorText,
   };
