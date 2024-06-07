@@ -30,6 +30,7 @@ export default function CreatePatient() {
           placeholder="ingrese el nombre del paciente"
           name="name"
           value={formData.name}
+          required
           onChange={(value) => handleInputChange("name", value)}
         />
         <InputBase
@@ -41,31 +42,79 @@ export default function CreatePatient() {
           onChange={(value) => handleInputChange("lastname", value)}
         />
         <SelectInput
-          label="Select an option"
-          name="email"
-          value={formData.email}
-          onChange={(value) => handleInputChange("email", value)}
+          label="Tipo de Documento"
+          name="tp_doc"
+          value={formData.tp_doc}
+          required
+          onChange={(value) => handleInputChange("tp_doc", value)}
           options={[
-            { value: "option1", label: "Option 1" },
-            { value: "option2", label: "Option 2" },
-            { value: "option3", label: "Option 3" },
+            { value: "cc", label: "Cedula" },
+            { value: "ti", label: "Tarjeta de Identidad" },
+            { value: "pp", label: "Pasaporte" },
           ]}
+        />
+        <InputBase
+          label="Numero de Documento"
+          type="number"
+          placeholder="ingrese el numero de documento"
+          name="num_doc"
+          required
+          value={formData.num_doc}
+          onChange={(value) => handleInputChange("num_doc", value)}
+        />
+        <SelectInput
+          label="Genero"
+          name="gender"
+          required
+          value={formData.gender}
+          onChange={(value) => handleInputChange("gender", value)}
+          options={[
+            { value: "hombre", label: "Hombre" },
+            { value: "mujer", label: "Mujer" },
+            { value: "otro", label: "Otro" },
+          ]}
+        />
+        <InputBase
+          label="Fecha de Nacimiento"
+          type="date"
+          placeholder=""
+          name="date_of_birth"
+          value={formData.date_of_birth}
+          onChange={(value) => handleInputChange("date_of_birth", value)}
+        />
+        <InputBase
+          label="Edad"
+          type="number"
+          placeholder="ingrese la edad"
+          name="age"
+          required
+          value={formData.age}
+          onChange={(value) => handleInputChange("age", value)}
+        />
+        <InputBase
+          label="Numero de Telefono"
+          type="number"
+          placeholder="ingrese el numero de telefono"
+          name="phone"
+          required
+          value={formData.phone}
+          onChange={(value) => handleInputChange("phone", value)}
+        />
+        <InputBase
+          label="Direccion"
+          type="text"
+          placeholder="ingrese la direccion"
+          name="address"
+          value={formData.address}
+          onChange={(value) => handleInputChange("address", value)}
         />
         <InputBase
           label="Correo Electronico"
           type="email"
-          placeholder="ingrese su correo electronico"
+          placeholder="ingrese el correo electronico"
           name="email"
           value={formData.email}
           onChange={(value) => handleInputChange("email", value)}
-        />
-        <InputBase
-          label="Contraseña"
-          type="date"
-          placeholder="ingrese su contraseña"
-          name="password"
-          value={formData.password}
-          onChange={(value) => handleInputChange("password", value)}
         />
       </main>
       <div className="flex justify-end m-2 gap-2">

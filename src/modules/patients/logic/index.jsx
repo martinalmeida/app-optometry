@@ -3,23 +3,25 @@ import { useNavigate } from "react-router-dom";
 
 import { coreApi } from "../../../api/coreApi";
 import { formValidator } from "../../../lib/formValidator";
+import { SesionLocal } from "../../shared/helpers/sesionLocal";
 
 export function patientLogic() {
   const navigate = useNavigate();
+  const { id, id_comp } = SesionLocal();
 
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
     tp_doc: "",
-    num_doc: 0,
+    num_doc: "",
     gender: "",
     date_of_birth: "",
-    age: 0,
+    age: "",
     phone: "",
     address: "",
     email: "",
-    id_user: 0,
-    id_comp: 0,
+    id_user: id,
+    id_comp: id_comp,
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +31,7 @@ export function patientLogic() {
   const closeModal = () => setModalOpen(false);
 
   const handleInputChange = (name, value) => {
+    console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,
@@ -37,21 +40,28 @@ export function patientLogic() {
 
   const onSubmitCreated = async () => {
     try {
-      const isValid = formValidator(formData, ["email", "password"]);
+      const isValid = formValidator(formData, [
+        "name",
+        "tp_doc",
+        "num_doc",
+        "gender",
+        "age",
+        "phone",
+      ]);
 
       if (!isValid) {
         setModalOpen(true);
-        setErrorText("Todos los campos son obligatorios");
+        setErrorText("Todos los campos son obligatorios para registrar");
         return;
       }
       setIsLoading(true);
-      const response = await coreApi().post("auth/login", formData);
+      const response = await coreApi().post("patient", formData);
       setIsLoading(false);
 
       if (response && response.status === 201) {
-        window.localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.localStorage.setItem("tokenJwt", response.data.token);
-        navigate("/home");
+        setModalOpen(true);
+        setErrorText(response.data.message);
+        navigate("/patients");
       }
     } catch (error) {
       setIsLoading(false);

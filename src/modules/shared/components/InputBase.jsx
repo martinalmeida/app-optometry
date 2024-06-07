@@ -6,6 +6,7 @@ export default function InputBase({
   placeholder,
   name,
   value,
+  required,
   onChange,
 }) {
   const handleChange = (event) => {
@@ -14,7 +15,9 @@ export default function InputBase({
 
   return (
     <div className="mb-2">
-      <label className="text-sm">{label}</label>
+      <label className="text-sm">
+        {label} <span className="text-red-500">{required ? "*" : ""}</span>
+      </label>
       <input
         type={type}
         placeholder={placeholder}
