@@ -31,7 +31,6 @@ export function patientLogic() {
   const closeModal = () => setModalOpen(false);
 
   const handleInputChange = (name, value) => {
-    console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,

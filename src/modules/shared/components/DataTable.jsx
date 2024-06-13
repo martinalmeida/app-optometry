@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { sharedLogic } from "../logic";
 import InputBase from "../../shared/components/InputBase.jsx";
 import BtnBase from "../../shared/components/BtnBase.jsx";
@@ -14,7 +14,7 @@ export default function DataTable({ createRoute, data = [] }) {
   } = sharedLogic();
   const [filteredData, setFilteredData] = useState(data);
 
-  useEffect(() => {
+  const initializeTable = useCallback(() => {
     if (data.length > 0) {
       const headers = Object.keys(data[0]);
       setHeaderTable(headers);
@@ -26,27 +26,34 @@ export default function DataTable({ createRoute, data = [] }) {
   }, [data, setHeaderTable, setBodyTable]);
 
   useEffect(() => {
-    const filtered = data.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          value && value.toString().toLowerCase().includes(search.toLowerCase())
-      )
-    );
+    initializeTable();
+  }, [initializeTable]);
 
-    const body = filtered.map((item) =>
-      headerTable.map((header) => item[header])
-    );
-    setBodyTable(body);
+  useEffect(() => {
+    if (data.length > 0) {
+      const filtered = data.filter((item) =>
+        Object.values(item).some(
+          (value) =>
+            value &&
+            value.toString().toLowerCase().includes(search.toLowerCase())
+        )
+      );
+
+      const body = filtered.map((item) =>
+        headerTable.map((header) => item[header])
+      );
+      setBodyTable(body);
+    }
   }, [search, data, headerTable, setBodyTable]);
 
   return (
     <div>
       <div className="flex items-center justify-between py-4">
-        <div className="relative">
+        <div className="relative mr-4">
           <BtnBase
             onClickFunction={createRoute}
             type="add"
-            className="text-sm px-4 py-2 bg-blue-500 text-white rounded"
+            className="text-sm bg-blue-500 text-white rounded"
           >
             Agregar
           </BtnBase>
@@ -58,7 +65,7 @@ export default function DataTable({ createRoute, data = [] }) {
             placeholder="Buscar en la tabla"
             name="search"
             value={search}
-            onChange={(value) => handleInputChange("name", value)}
+            onChange={(value) => handleInputChange("search", value)}
             className="w-64"
           />
         </div>
