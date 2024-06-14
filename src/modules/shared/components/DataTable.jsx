@@ -4,15 +4,17 @@ import InputBase from "../../shared/components/InputBase.jsx";
 import BtnBase from "../../shared/components/BtnBase.jsx";
 
 export default function DataTable({ createRoute, data = [] }) {
-  const {
-    search,
-    handleInputChange,
-    headerTable,
-    setHeaderTable,
-    bodyTable,
-    setBodyTable,
-  } = sharedLogic();
+  const { headerTable, setHeaderTable, bodyTable, setBodyTable } =
+    sharedLogic();
+
+  const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState(data);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const handleInputChange = (event) => {
+    setSearch(event.target.value);
+  };
 
   const initializeTable = useCallback(() => {
     if (data.length > 0) {
@@ -46,6 +48,17 @@ export default function DataTable({ createRoute, data = [] }) {
     }
   }, [search, data, headerTable, setBodyTable]);
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedData = bodyTable.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(bodyTable.length / itemsPerPage);
+
   return (
     <div>
       <div className="flex items-center justify-between py-4">
@@ -71,54 +84,79 @@ export default function DataTable({ createRoute, data = [] }) {
         </div>
       </div>
       <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              {headerTable.map((header, index) => (
-                <th key={index} scope="col" className="px-6 py-3">
-                  {header}
+        {data.length > 0 ? (
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                {headerTable.map((header, index) => (
+                  <th key={index} scope="col" className="px-6 py-3">
+                    {header}
+                  </th>
+                ))}
+                <th scope="col" className="px-6 py-3">
+                  Acciones
                 </th>
-              ))}
-              <th scope="col" className="px-6 py-3">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {bodyTable.length > 0 ? (
-              bodyTable.map((row, rowIndex) => (
-                <tr
-                  key={rowIndex}
-                  className="dark:border-gray-700 hover:bg-gray-50"
-                >
-                  {row.map((cell, cellIndex) => (
-                    <td key={cellIndex} className="px-6 py-4">
-                      {cell}
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedData.length > 0 ? (
+                paginatedData.map((row, rowIndex) => (
+                  <tr
+                    key={rowIndex}
+                    className="dark:border-gray-700 hover:bg-gray-50"
+                  >
+                    {row.map((cell, cellIndex) => (
+                      <td key={cellIndex} className="px-6 py-4">
+                        {cell}
+                      </td>
+                    ))}
+                    <td className="px-6 py-4">
+                      <a
+                        href="#"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Editar
+                      </a>
                     </td>
-                  ))}
-                  <td className="px-6 py-4">
-                    <a
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Editar
-                    </a>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={headerTable.length + 1}
+                    className="px-6 py-4 text-center"
+                  >
+                    No hay datos para mostrar
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={headerTable.length + 1}
-                  className="px-6 py-4 text-center"
-                >
-                  No hay datos para mostrar
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          <div className="px-6 py-4 text-center">No hay datos para mostrar</div>
+        )}
       </div>
+      {data.length > 0 && (
+        <div className="flex justify-between items-center py-4">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Anterior
+          </button>
+          <span>
+            Página {currentPage} de {totalPages}
+          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Siguiente
+          </button>
+        </div>
+      )}
     </div>
   );
 }
